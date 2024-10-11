@@ -1,6 +1,13 @@
-export const changeBackground  = (payload: any) => { //la actualización de la variable
+export const addProductsList  = (payload: any) => { //la actualización de la variable
     return  {
-        action: 'CHANGEBACKGROUND',
+        action: 'ADDPRODUCT',
+        payload,
+    }
+}
+
+export const screen  = (payload: any) => { 
+    return  {
+        action: 'DASHBOARD',
         payload,
     }
 }

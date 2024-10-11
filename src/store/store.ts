@@ -1,13 +1,15 @@
 import { reducer } from './reducer'
+import Storage from '../utils/storage';
 
 //El estado global === appState / propiedades por ahora quemadas
 export let appState = {
-    backgroundColor: 'black',
-    username: 'Juanes',
-    id: 12345,
-    screen: 'dashboard',
+    screen: 'DASHBOARD',
+    shoppingList: [],
 };
 
+const persistStore = (state: any) => { // aquí quiero es guardarlo
+	Storage.set('STORE', state); // no envio el booleano porque quiero que se guarde en el local
+};
 
 //Crear el dispatch recibe una accion.
 export const dispatch = (action: any) => { // el dispatch clona le estado global para luego darse cuenta con el reducer que acción estoy lanzando
@@ -16,7 +18,9 @@ export const dispatch = (action: any) => { // el dispatch clona le estado global
 
     appState = reducer(action, clone); // El estado global ahora va a ser igual lo que haya cambaido en el reducer. El reducer recibe una acción y trabaja con el clon
 
-    observers.forEach((o) => o.render()); // donde haya un observador, que se ejecute el render de esa clase
+    persistStore(appState); // Cuando se haga el dispatch se guarda el appState en el localStorage
+
+    observers.forEach((o) => o.render()); // donde haya un observador, que se ejecute el render de esa clase  
 };
 
 //Agregar los observadores para los interesados, los suscritos. El store le notifica a la screen que algo cambió

@@ -1,4 +1,6 @@
 import styles from './product.css'
+import { addObserver, dispatch } from "../../store/store";
+import { addProductsList } from "../../store/actions";
 
 export enum Attribute {
     "image" = "image",
@@ -8,7 +10,6 @@ export enum Attribute {
     "price" = "price",
     "rating" = "rating" ,
 }
-
 
 class Product extends HTMLElement {
     image?: string;
@@ -41,14 +42,13 @@ class Product extends HTMLElement {
         constructor(){
             super();
             this.attachShadow({mode: "open"})
+            addObserver(this);
         }
 
         connectedCallback(){
            this.render();
         }
-
-        
-        
+      
         render(){
             if(this.shadowRoot){
                 this.shadowRoot.innerHTML = `
@@ -66,14 +66,30 @@ class Product extends HTMLElement {
                         <p class="category">Category: ${this.category || 'No Category'}</p>
                         <p class="rating">Rating: ${this.rating || 'No  Rating'}</p>
                         <p class="price">$${this.price || 'No Price'}</p>
-                        
-                        <button>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24"><path fill="currentColor" d="M11 9h2V6h3V4h-3V1h-2v3H8v2h3M7 18c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2m10 0c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2m-9.8-3.2v-.1l.9-1.7h7.4c.7 0 1.4-.4 1.7-1l3.9-7l-1.7-1l-3.9 7h-7L4.3 2H1v2h2l3.6 7.6L5.2 14c-.1.3-.2.6-.2 1c0 1.1.9 2 2 2h12v-2H7.4c-.1 0-.2-.1-.2-.2"/></svg>
-                        </button>
+
                     </div>
                 </div>
             </div>       
                 `
+                const divDetails = this.shadowRoot.querySelector(".details");
+                const btn = this.ownerDocument.createElement('button');
+                btn.innerText = 'Añadir al carrito';
+                btn.addEventListener('click',()=>{
+                    dispatch(addProductsList({
+                        title: this.titleproduct,
+                        price: this.price,
+                        description: this.description,
+                        category: this.category,
+                        image: this.image,
+                        rating: this.rating
+                    }))
+                })
+
+                if (divDetails) {  
+                divDetails.appendChild(btn);
+                this.shadowRoot.appendChild(divDetails);
+                }
+
             }
 
             const cssProduct = this.ownerDocument.createElement("style");
