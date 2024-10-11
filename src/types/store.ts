@@ -1,19 +1,14 @@
 export type AppState = {
 	screen: string;
-	backgroundColor: string;
-	username: string;
-	id: number;
+	shoppingList: any;
 };
 
 export type Observer = { render: () => void } & HTMLElement;
 
 export enum Actions {
-	'CHANGEBACKGROUND' = 'CHANGEBACKGROUND',
-	'NAVIGATE' = 'NAVIGATE',
+	'ADDPRODUCT' = 'ADDPRODUCT',
 }
 
 export enum Screens {
-	'LOGIN' = 'LOGIN',
 	'DASHBOARD' = 'DASHBOARD',
-	'REGISTER' = 'REGISTER',
 }

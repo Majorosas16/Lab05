@@ -1,11 +1,15 @@
 import { reducer } from './reducer'
+import { AppState, Observer } from '../types/store';
 import Storage from '../utils/storage';
 
 //El estado global === appState / propiedades por ahora quemadas
-export let appState = {
+
+const initialState: AppState = {
     screen: 'DASHBOARD',
     shoppingList: [],
 };
+
+export let appState = Storage.get('STORE', initialState);
 
 const persistStore = (state: any) => { // aquí quiero es guardarlo
 	Storage.set('STORE', state); // no envio el booleano porque quiero que se guarde en el local
