@@ -31,11 +31,9 @@ class Product extends HTMLElement {
             case Attribute.rating:
                 this.rating = newValue ? Number(newValue) : undefined;
                 break;
-                break;
             default:
                 this[propName] = newValue;
-                break;
-        
+                break;  
     }
 }
         
@@ -52,7 +50,6 @@ class Product extends HTMLElement {
         render(){
             if(this.shadowRoot){
                 this.shadowRoot.innerHTML = `
-            <link rel="stylesheet" href="../src/components/product/product.css">
             <div class="product">
                 <div class="image">
                     <img src="${this.image}" || 'No Image'}">
@@ -66,16 +63,16 @@ class Product extends HTMLElement {
                         <p class="category">Category: ${this.category || 'No Category'}</p>
                         <p class="rating">Rating: ${this.rating || 'No  Rating'}</p>
                         <p class="price">$${this.price || 'No Price'}</p>
-
                     </div>
                 </div>
             </div>       
                 `
                 const divDetails = this.shadowRoot.querySelector(".details");
                 const btn = this.ownerDocument.createElement('button');
-                btn.innerText = 'Añadir al carrito';
-                btn.addEventListener('click',()=>{
-                    dispatch(addProductsList({
+                btn.textContent = 'Add to cart';
+                btn.addEventListener('click',(e)=>{
+                    e.preventDefault();
+                    dispatch(addProductsList({ // le envio estos datos 
                         title: this.titleproduct,
                         price: this.price,
                         description: this.description,
@@ -87,7 +84,7 @@ class Product extends HTMLElement {
 
                 if (divDetails) {  
                 divDetails.appendChild(btn);
-                this.shadowRoot.appendChild(divDetails);
+
                 }
 
             }
