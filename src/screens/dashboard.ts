@@ -1,4 +1,4 @@
-import { addObserver, appState, dispatch } from "../store/store";
+import { addObserver, appState } from "../store/store";
 import { addProductsList } from "../store/actions";
 import Product, { Attribute } from '../components/product/product';
 import ShoppingCartItem , { AttributeShoppingCart } from "../components/shoppingCartItem/shoppingCartItem";
@@ -42,11 +42,11 @@ class Dashboard extends HTMLElement {
 		}
 
 		createCardsShoppingItem ()  {
-            this.dataProducts.forEach(productData => {
+            appState.shoppingList.forEach((element: any) => {
                 const product = this.ownerDocument.createElement('shopping-card') as ShoppingCartItem; 
-                product.setAttribute(AttributeShoppingCart.image, productData.image);
-                product.setAttribute(AttributeShoppingCart.titleproduct, productData.title);
-                product.setAttribute(AttributeShoppingCart.price, productData.price);
+                product.setAttribute(AttributeShoppingCart.image, element.image);
+                product.setAttribute(AttributeShoppingCart.titleproduct, element.title);
+                product.setAttribute(AttributeShoppingCart.price, element.price);
                 
                 this.shoppingCart.push(product);
         
