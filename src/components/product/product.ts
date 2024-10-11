@@ -57,12 +57,13 @@ class Product extends HTMLElement {
                 <div class="information">
                     <div class="details">
                         <h3>${this.titleproduct || 'No Title'}</h3>
+
                         <div class="description">
                             <p >${this.description || 'No Description'}</p>
                         </div>
                         <p class="category">Category: ${this.category || 'No Category'}</p>
                         <p class="rating">Rating: ${this.rating || 'No  Rating'}</p>
-                        <p class="price">$${this.price || 'No Price'}</p>
+                        <p class="price">Price: $${this.price || 'No Price'}</p>
                     </div>
                 </div>
             </div>       
@@ -84,7 +85,6 @@ class Product extends HTMLElement {
 
                 if (divDetails) {  
                 divDetails.appendChild(btn);
-
                 }
 
             }

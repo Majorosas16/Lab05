@@ -1,6 +1,5 @@
 * {
     margin: 0;
-  
 }
 .container-products  {
     width: 100%;
@@ -24,12 +23,13 @@ h1  {
     margin-top: 3rem;
     text-align: center;
     font-family: "Montserrat", sans-serif;
-   color: #005954;
+   color: #242424;
 }
 hr  {
     width: 40%;
+    margin-top: 1.5rem;
     margin-left: 30%;
     height: 2px;
-    background-color: #5dc1b9;
+    background-color: #000000;
     border: none;
 }
